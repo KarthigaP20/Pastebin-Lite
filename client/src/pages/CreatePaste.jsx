@@ -1,27 +1,47 @@
 import { useState } from "react";
 
-const API = import.meta.env.VITE_API_URL;
+const API = import.meta.env.VITE_API_URL; // Ensure this is set to your Render backend in .env
 
 export default function CreatePaste() {
   const [content, setContent] = useState("");
   const [link, setLink] = useState("");
+  const [error, setError] = useState("");
 
   const createPaste = async () => {
-    const res = await fetch(`${API}/api/pastes`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content }),
-    });
-    const data = await res.json();
-    setLink(data.url);
+    setError(""); // Reset error
+    setLink(""); // Reset previous link
+
+    if (!content.trim()) {
+      setError("Content cannot be empty.");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API}/api/pastes`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        setError(errData.error || "Failed to create paste.");
+        return;
+      }
+
+      const data = await res.json();
+      setLink(data.url);
+      setContent(""); // Clear textarea after success
+    } catch (err) {
+      console.error(err);
+      setError("Server error. Please try again later.");
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
       <div className="w-full max-w-xl bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-4 text-center">
-          Pastebin Lite
-        </h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Pastebin Lite</h2>
 
         <textarea
           className="w-full h-40 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -37,12 +57,18 @@ export default function CreatePaste() {
           Create Paste
         </button>
 
+        {error && (
+          <p className="mt-4 text-center text-red-500">{error}</p>
+        )}
+
         {link && (
           <div className="mt-4 text-center">
             <p className="text-sm text-gray-600">Shareable link:</p>
             <a
               href={link}
               className="text-blue-600 break-all underline"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               {link}
             </a>
