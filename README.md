@@ -1,4 +1,4 @@
-# Pastebin-Lite([https://pastebinlite-theta.vercel.app]) 
+# Pastebin-Lite[https://pastebinlite-theta.vercel.app]
 
 A lightweight Pastebin-like application where users can create text pastes, receive a shareable URL, and view pastes with optional constraints such as time-to-live (TTL) and maximum views.
 
