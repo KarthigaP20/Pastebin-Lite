@@ -1,4 +1,4 @@
-# Pastebin-Lite
+# Pastebin-Lite([https://pastebinlite-theta.vercel.app]) 
 
 A lightweight Pastebin-like application where users can create text pastes, receive a shareable URL, and view pastes with optional constraints such as time-to-live (TTL) and maximum views.
 
@@ -26,45 +26,38 @@ A lightweight Pastebin-like application where users can create text pastes, rece
 git clone https://github.com/KarthigaP20/Pastebin-Lite.git
 cd Pastebin-Lite
 
-Install dependencies for backend:
+2. Install dependencies for backend:
 
 cd server
 npm install
 
-
-Create a .env file in /server:
+3. Create a .env file in /server:
 
 MONGO_URI=<Your MongoDB connection string>
 PORT=3001
 TEST_MODE=1
 BASE_URL=http://localhost:3001
 
-
-Start backend server:
+4. Start backend server:
 
 npm start
 
-
-Install dependencies for frontend:
+5. Install dependencies for frontend:
 
 cd ../client
 npm install
 
-
-Create a .env file in /client:
+6. Create a .env file in /client:
 
 VITE_API_URL=http://localhost:3001
 
-
-Start frontend development server:
+7. Start frontend development server:
 
 npm run dev
 
+Open http://localhost:5173 in your browser.
 
-Open http://localhost:5173
- in your browser.
-
-**Persistence Layer**
+Persistence Layer
 
 Database: MongoDB Atlas (cloud-hosted)
 
@@ -72,7 +65,7 @@ Used to store pastes with optional TTL and max view constraints.
 
 Ensures data persists across requests and server restarts.
 
-**Design Decisions**
+Design Decisions
 
 Frontend: React + Vite + Tailwind CSS for fast development and responsive UI.
 
@@ -83,9 +76,9 @@ Deterministic testing: TEST_MODE=1 and x-test-now-ms support for automated tests
 Constraints: Both TTL and max views are optional and independently enforced.
 
 Security: Paste content is escaped in HTML views to prevent XSS.
-**
+
 Usage
-**
+
 Go to frontend URL: https://pastebinlite-theta.vercel.app
 
 Enter your text in the Paste Content box.
@@ -96,7 +89,7 @@ Click Create Paste.
 
 Copy the shareable URL and open it to view the paste.
 
-**Repository**
+Repository
 
 GitHub Repository: https://github.com/KarthigaP20/Pastebin-Lite
 
